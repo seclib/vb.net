@@ -1,0 +1,51 @@
+<job id="ZTIDefaultAssociations">
+   <script language="VBScript" src="../../Scripts/ZTIUtility.vbs"/>
+   <script language="VBScript">
+' // ***************************************************************************
+' // 
+' // Copyright (c) Microsoft Corporation.  All rights reserved.
+' // 
+' // Microsoft Deployment Toolkit Solution Accelerator
+' //
+' // File:      ZTIDefaultAssociations.wsf
+' // 
+' // Version:   6.3.8443.1000
+' // 
+' // Purpose:   Use Dism to force apply start screen layout.
+' // 
+' // Usage:     cscript ZTIDefaultAssociations.wsf [/debug:true] [/UDI]
+' // 
+' // ***************************************************************************
+Option Explicit
+RunNewInstance
+'//----------------------------------------------------------------------------
+'//  Main Class
+'//----------------------------------------------------------------------------
+Class ZTIDefaultAssociations
+  '//----------------------------------------------------------------------------
+  '//  Main routine
+  '//----------------------------------------------------------------------------
+  Function Main
+  
+    '//----------------------------------------------------------------------------
+    '//  Declare variables
+    '//----------------------------------------------------------------------------
+    Dim iRetVal
+    iRetVal = Success
+    '//----------------------------------------------------------------------------
+    '//  Copying OEMDefaultAssociations.xml file
+    '//----------------------------------------------------------------------------
+    oLogging.CreateEntry "Copying OEMDefaultAssociations.xml to Windows\System32.", LogTypeInfo
+    oFileHandling.CopyFile oUtility.ScriptDir & "\OEMDefaultAssociations.xml", oEnv("WinDir") & "\System32\OEMDefaultAssociations.xml", true
+	oFileHandling.CopyFile oUtility.ScriptDir & "\fz-a2_specsheet.pdf", oEnv("SystemDrive") & "\Users\Public\Desktop\fz-a2_specsheet.pdf", true
+	oFileHandling.CopyFile oUtility.ScriptDir & "\fz-q2_specsheet.pdf", oEnv("SystemDrive") & "\Users\Public\Desktop\fz-q2_specsheet.pdf", true
+	oFileHandling.CopyFile oUtility.ScriptDir & "\Toughbook.url", oEnv("SystemDrive") & "\Users\Public\Desktop\Toughbook.url", true
+    '//----------------------------------------------------------------------------
+    '//  Specify to use OEMDefaultAssociations via Registry
+    '//----------------------------------------------------------------------------
+    oLogging.CreateEntry "Import DefaultAssociationsConfiguration Reg Key.", LogTypeInfo
+	iRetVal = oUtility.RegWrite("HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System\DefaultAssociationsConfiguration", oEnv("WinDir") & "\System32\OEMDefaultAssociations.xml")
+  End Function
+End Class
+    </script>
+</job>

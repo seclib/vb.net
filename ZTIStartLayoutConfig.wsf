@@ -1,0 +1,55 @@
+<job id="ZTIStartLayoutConfig">
+   <script language="VBScript" src="../../Scripts/ZTIUtility.vbs"/>
+   <script language="VBScript">
+' // ***************************************************************************
+' // 
+' // Copyright (c) Microsoft Corporation.  All rights reserved.
+' // 
+' // Microsoft Deployment Toolkit Solution Accelerator
+' //
+' // File:      ZTIStartLayoutConfig.wsf
+' // 
+' // Version:   6.3.8443.1000
+' // 
+' // Purpose:   Use Dism to force apply start screen layout.
+' // 
+' // Usage:     cscript ZTIStartLayoutConfig.wsf [/debug:true] [/UDI]
+' // 
+' // ***************************************************************************
+Option Explicit
+RunNewInstance
+'//----------------------------------------------------------------------------
+'//  Main Class
+'//----------------------------------------------------------------------------
+Class ZTIStartLayoutConfig
+  '//----------------------------------------------------------------------------
+  '//  Main routine
+  '//----------------------------------------------------------------------------
+  Function Main
+  
+    '//----------------------------------------------------------------------------
+    '//  Declare variables
+    '//----------------------------------------------------------------------------
+    Dim iRetVal,iRC
+    
+    iRetVal = Success
+    '//----------------------------------------------------------------------------
+    '//  Copying StartLayout.xml file
+    '//----------------------------------------------------------------------------
+    oLogging.CreateEntry "Copying StartLayout.xml to Windows\System32.", LogTypeInfo
+    oFileHandling.CopyFile oUtility.ScriptDir & "\StartLayout.xml", oEnv("SystemDrive") & "\Windows\System32\StartLayout.xml", true
+    '//----------------------------------------------------------------------------
+    '//  Copy Desired lnk files to %ALLUSERSPROFILES%
+    '//----------------------------------------------------------------------------
+    oLogging.CreateEntry "Copy Desired lnk files to %ALLUSERSPROFILES%.", LogTypeInfo
+    oFileHandling.CopyFile oUtility.ScriptDir & "\File Explorer.lnk", oEnv("AllUsersProfile") & "\Microsoft\Windows\Start Menu\Programs\System Tools\File Explorer.lnk", true
+    oFileHandling.CopyFile oUtility.ScriptDir & "\Internet Explorer.lnk", oEnv("AllUsersProfile") & "\Microsoft\Windows\Start Menu\Programs\Accessories\Internet Explorer.lnk", true
+    '//----------------------------------------------------------------------------
+    '//  Apply start screen layout using Dism
+    '//----------------------------------------------------------------------------
+    oLogging.CreateEntry "Importing StartLayout.xml using Powershell's Import-StartLayout cmdlet.", LogTypeInfo
+    iRC = oUtility.RunWithConsoleLogging("powershell.exe -ExecutionPolicy ByPass -Command ""Import-StartLayout -MountPath " & oEnv("SystemDrive") & "\ -LayoutPath " & oEnv("WinDir") & "\System32\StartLayout.xml""")
+  End Function
+End Class
+    </script>
+</job>

@@ -1,0 +1,143 @@
+VB 2008 Useful Code
+
+Make the computer talk
+
+Code:
+Dim sapi
+sapi = CreateObject("sapi.spvoice")
+sapi.Speak("TextHere")
+
+Create a messagebox
+
+Code:
+MsgBox("TextHere")
+Create A Message Box With A Yes + No Button
+
+Code:
+Dim Responce As Integer
+Responce = MsgBox("Are You Sure", vbYesNo, "DELETE")
+If Responce = vbYes Then
+  MsgBox(" You Clicked Yes!")
+Else
+MsgBox("You Clicked No!")
+End If
+To change buttons,replace “vbyesno” with one of the following:
+
+Code:
+vbYesNoCancel
+vbCritical
+vbExcalmation
+vbInformation
+vbMsgBoxHelp
+vbMsgBoxRight
+vbOkOnly
+vbRetryCancel
+vbDefaultButton1
+vbDefaultButton2
+vbDefaultButton3
+vbApplicationmodal
+vbQuestion
+vbOkCancel
+vbAbortRetryIgnore
+Start a process
+Code:
+Process.Start("notepad")
+Process.Start("www.hackforum.net")
+Kill a process
+
+Code:
+Dim RunningProcess As System.Diagnostics.Process = Process.GetProcessesByName("taskmgr.exe")(0)
+RunningProcess.Kill()
+Rename a file
+
+Code:
+My.Computer.FileSystem.RenameFile ("C:\Program Files\Mozilla Firefox\firefox.exe", "Anything.exe")
+Delete a file
+
+Code:
+Dim FileToDelete As String
+FileToDelete = "C:\File.exe"
+If System.IO.File.Exists(FileToDelete) = True Then
+System.IO.File.Delete(FileToDelete)
+Copy a file
+
+Code:
+Dim FileToCopy As String
+Dim NewCopy As String
+
+FileToCopy = "C:\test.exe"
+NewCopy = "C:\NewTest.txt"
+
+If System.IO.File.Exists(FileToCopy) = True Then
+System.IO.File.Copy(FileToCopy, NewCopy)
+Delete a registry key
+
+Code:
+My.Computer.Registry.LocalMachine.DeleteSubKey("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SafeBoot")
+Create a registry key
+
+Code:
+Dim regKey As RegistryKey
+regKey = Registry.LocalMachine.OpenSubKey("SOFTWARE", True)
+regKey.CreateSubKey("MyApp")
+regKey.Close()
+Over write a text file and then add text to it
+
+Code:
+Dim OverWrite As String = "C:\Documents and Settings\All Users\Desktop\Example.txt"
+If System.IO.File.Exists(OverWrite) = True Then
+Dim ObjWriter4 As New System.IO.StreamWriter(OverWrite)
+ObjWriter4.Write("Text To Add")
+ObjWriter4.Close()
+Create an if statement (File Deletion)
+
+Code:
+Dim FileToDeleteWithAIfStatement As String
+FileToDeleteWithAIfStatement = "C:\Windows\I386\regedit.exe"
+If System.IO.File.Exists(FileToDeleteWithAIfStatement) = True The
+System.IO.File.Delete(FileToDeleteWithAIfStatement)
+End If
+For loop
+
+Code:
+For MessageBox = 1 To 60
+MsgBox(" This Will Loop Sixty Times!")
+
+Next MessageBox
+Hide your application
+
+Code:
+Me.Hide ()
+Send an email with an attachment via SMTP Source
+
+Code:
+Dim message As System.Net.Mail.MailMessage
+
+Dim smtp As New System.Net.Mail.SmtpClient("smtp.gmail.com", 587)
+
+
+Dim attach As System.Net.Mail.Attachment
+
+
+message = New System.Net.Mail.MailMessage(txtFrom.Text, txtTo.Text, txtSubject.Text, txtMessage.Text)
+
+
+If My.Computer.FileSystem.FileExists(txtAttachment.Text) Then message.Attachments.Add(attach)
+
+smtp.EnableSsl = True
+
+
+smtp.Credentials = New System.Net.NetworkCredential("yourUsername@yourmail.com", "password")
+
+Try
+
+smtp.Send(message)
+
+
+MessageBox.Show("Well, the mail message appears to have been a success!", " Successful?", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+Catch exc As Net.Mail.SmtpException
+
+MessageBox.Show(exc.StatusCode.ToString, " Something Happened?", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+End Try
