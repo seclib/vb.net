@@ -1,0 +1,47 @@
+<job id="InstallAdobeReader">
+   <script language="VBScript" src="../../Scripts/ZTIUtility.vbs"/>
+   <script language="VBScript">
+' // ***************************************************************************
+' // 
+' // Copyright (c) Microsoft Corporation.  All rights reserved.
+' // 
+' // Microsoft Deployment Toolkit Solution Accelerator
+' //
+' // File:      InstallAdobeReader.wsf
+' // 
+' // Version:   6.3.8443.1000
+' // 
+' // Purpose:   Use Dism to force apply start screen layout.
+' // 
+' // Usage:     cscript InstallAdobeReader.wsf [/debug:true] [/UDI]
+' // 
+' // ***************************************************************************
+Option Explicit
+RunNewInstance
+'//----------------------------------------------------------------------------
+'//  Main Class
+'//----------------------------------------------------------------------------
+Class InstallAdobeReader
+  '//----------------------------------------------------------------------------
+  '//  Main routine
+  '//----------------------------------------------------------------------------
+  Function Main
+    '//----------------------------------------------------------------------------
+    '//  Declare variables
+    '//----------------------------------------------------------------------------
+    Dim iRetVal
+    iRetVal = Success
+    '//----------------------------------------------------------------------------
+    '//  Install Adobe Reader MSI Base
+    '//----------------------------------------------------------------------------
+    oLogging.CreateEntry "Install Adobe Reader Base MSI.", LogTypeInfo
+	iRetVal = oUtility.RunWithHeartbeat("msiexec.exe /i """ & oUtility.ScriptDir & "\AcroRead.msi"" DISABLE_ARM_SERVICE_INSTALL=1 EULA_ACCEPT=YES DISABLEDESKTOPSHORTCUT=1 UPDATE_MODE=0 /qn /l* """ & oUtility.LogPath & "\AdobeReaderMSI.log""")
+    '//----------------------------------------------------------------------------
+    '//  Install Adobe Reader MSP Update
+    '//----------------------------------------------------------------------------
+    oLogging.CreateEntry "Install Adobe Reader Update MSP.", LogTypeInfo
+	iRetVal = oUtility.RunWithHeartbeat("msiexec.exe /p """ & oUtility.ScriptDir & "\AcroRdrDCUpd1502320070.msp"" /qn /l* """ & oUtility.LogPath & "\AdobeReaderMSP.log""")
+  End Function
+End Class
+    </script>
+</job>

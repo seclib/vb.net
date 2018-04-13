@@ -1,0 +1,62 @@
+;================================================================================================================
+; Changelog
+;================================================================================================================
+; 1.0 - Dec 12 2012
+;	Added step to delete (pop) Optional Drivers from DriverZips Array.
+; 1.1 - Dec 21 2012
+;	Added PNPCheck function, corrected count of elements in driver array.
+;	Added TASKKILL call at end of script to close CmdWindowEvery3Sec.exe
+;	Updated .ICOs for both HideCmdWindowEvery3Sec.exe and install.exe
+;	Also compiled code with PanaConsulting icon.
+;	Cleaned up Progress Bar Display by adding Bundle Name and removing File Extension
+; 1.2 - Jan 31 2013
+;	Changed "##" o pre-fix used for skipped application/driver installs.
+; 1.2.1 - Feb 4 2013
+;	Changed script to dymanically search for Sub-Folder name and not rely on "src\" name.
+; 1.2.2 - Apr 17, 2013
+;	Changed all C:\Windows strings to @WindowsDir
+; 1.2.3 - May 14, 2013
+;	Set install.exe to perform an ArraySort on the $aDriverZips and not rely on the OS for correct sorting.
+; 1.2.4 - May 29, 2013
+;	Shortened the name of each step displayed to 35 characters.
+;	Set the current install to skip if its already been run in the past.
+; 1.3 - Dec 16, 2013
+;	Changed C:\ calls to SystemDrive
+;	Added call to DLL to disable 64-Bit Redirection
+;	Added ability to redirect log file to alternate Directory using argument 1
+;	Added log redirection within PInstalls as well.  Add "%1" within log for log folder redirection.
+; 1.3.2 - Dec 22, 2013
+;	Set argument passed to PInstall to 2ND arg, as 1st is used in standard PInstalls already.
+; 1.3.3 - Sep 25, 2014
+;	Deletes any produced .log files in the root of the SystemDrive.
+;	Added additional step to force copy of .ZIP before extraction.
+; 1.4 - Oct 3, 2014
+;	Set Install.exe to copy Changelog and also pull bundle version number.
+;	Adding logging for deleting of log files from root of SystemDrive.
+; 1.4.1 - Oct 6, 2014
+;	Corrected issue with Bundle-Changelog Copy script.
+; 1.4.2 - Oct 7, 2014
+;	Added Bundle Version to Install Header, and Log File.
+;	Added full path to log file for .ZIP being extracted.
+;	Reset the Bottom Progress Bars after each copy if complete.
+;	Output install86 and install64 EXEs.
+;	Set Install.exe to kill BDDRun.exe when complete. To fix BDDRun getting hung.
+; 1.4.3 - Oct 8, 2014
+;	Re-enabled 64Bit Re-direction.
+;	Adding additional logging on .ZIP copy routine.
+; 1.4.5 - Nov 5, 2014
+;	- Removed support for changing logging path as only 1 argument is allowed via -sp1 command.
+;	- Set Script to Delete Driver ZIP files after copying them local.
+; 1.4.6 - Feb 20, 2015
+;	- Set up delete routine to only occur if "temp" is found in ZipPath.
+; 1.4.7 - Mar 04, 2015
+;	- Corrected logic used to delete zippath.
+;	- Set script to delete 7za.exe and HideCmdWindowEvery3Sec.exe at end of script.
+; 1.5 - Feb 22, 2016
+;	- Added /killBDD and /logPath arguments and set logfile to overwrite itself.
+;	- Added #RequireAdmin autoit function.
+;	- Set up the Bundle_Changelog and Install_Changelog to be purged when running fresh OCB.
+; 1.5.2 - Apr 6, 2016
+;	- Commented out portion of install that skips existing install.zips.
+;	- Added logging for sBDDKill var.
+;================================================================================================================

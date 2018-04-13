@@ -1,0 +1,52 @@
+Load and Save Arraylist from disk (String)
+
+Imports System.IO ‘Is required at the top of your class.
+ 
+  Public Function LoadArrayList(ByVal path As String) As ArrayList
+
+    Try
+      If Not File.Exists(path) Then
+        Return New ArrayList
+      End If
+
+      Dim reader As New StreamReader(path, True), s As String, list As New ArrayList
+
+      Do
+        s = reader.ReadLine
+        If s = vbNullString Then Exit Do
+        list.Add(s)
+      Loop
+
+      reader.Close()
+
+      Return list
+
+    Catch ex As Exception
+      Debug.Write(ex.ToString)
+      Return New ArrayList
+    End Try
+
+  End Function
+ 
+    Dim myList As ArrayList = LoadArrayList(“c:\my\list.txt”)
+ 
+  Public Sub SaveArrayList(ByVal path As String, ByVal arrayList As ArrayList)
+
+    Try
+      Dim writer As New StreamWriter(path, False, Encoding.Unicode)
+
+      For Each s As String In arrayList
+        writer.WriteLine(s.ToString)
+      Next
+
+      writer.Close()
+    Catch ex As Exception
+      Debug.Write(ex.ToString, “SaveArrayList”)
+    End Try
+
+  End Sub
+ 
+    SaveArrayList(“c:\my\list.txt”, myArrayList)
+ 
+
+You can also modify this code to do numerous collections.
