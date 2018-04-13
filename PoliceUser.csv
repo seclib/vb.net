@@ -1,0 +1,4 @@
+Command Name,Version,Command Program,Command Argument,File or Folder Check,Copy Local Flag,Add Install Flag
+7-Zip,9.2,msiexec.exe,/i 7z920-x64.msi /qn /l* C:\Windows\Temp\7-ZipInstall.log,C:\Program Files\7-Zip\7z.exe,FALSE,TRUE
+Java,7u17,cmd.exe,/c java7u17\install.bat,C:\Program Files\Java\jre7\bin\javaw.exe,FALSE,TRUE
+Test Command,1,cmd.exe,/c echo This is a test>D:\T\TestCommand1.txt,D:\T\TestCommand1.txt,TRUE,TRUE
